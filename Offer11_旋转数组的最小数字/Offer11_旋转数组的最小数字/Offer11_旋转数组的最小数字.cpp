@@ -57,13 +57,34 @@ public:
         }
         return nums[l];
     }
+
+    // newcode JZ11
+    int minNumberInRotateArray(std::vector<int>& nums) {
+        if (nums.front() < nums.back()) {
+            return nums.front();
+        }
+        
+        int l = 0, r = nums.size() - 1;
+        while (l < r) {
+            int m = (l + r) / 2;
+            if (nums[m] < nums[r]) {
+                r = m;
+            } else if (nums[m] > nums[r]) {
+                l = m + 1;
+            } else {
+                --r;
+            }
+        }
+
+        return nums[l];
+    }
 };
 
 int main(int argc, char* argv[])
 {
     Solution sol;
-    std::vector<int> nums{3,3,1,3};
-    std::cout << sol.findMin(nums);
+    std::vector<int> nums{1, 0, 1, 1, 1};
+    std::cout << sol.minNumberInRotateArray(nums);
     
     return 0;
 }
